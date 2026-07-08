@@ -23,8 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Config\" />
-    <Folder Include="Helper\" />
   </ItemGroup>
 
 </Project>

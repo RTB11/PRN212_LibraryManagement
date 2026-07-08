@@ -1,4 +1,5 @@
 ﻿using LibraryManagementProject.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,23 +16,26 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementProject.Views
 {
-    public partial class AdminDashboard : Page
+  
+    public partial class BookListPageManager : Page
     {
         private readonly LibraryContext _context = new();
 
-        public AdminDashboard()
+        public BookListPageManager()
         {
             InitializeComponent();
-            LoadDashboard();
+
+            LoadBooks();
         }
 
-        private void LoadDashboard()
+        private void LoadBooks()
         {
-            txtTotalBooks.Text = _context.Books.Count().ToString();
-            txtTotalMembers.Text = _context.Members.Count().ToString();
-            txtTotalBorrows.Text = _context.BorrowRecords.Count(x => x.Status == "Borrowing").ToString();
-            txtTotalUsers.Text = _context.Users.Count().ToString();
-        }
+            var books = _context.Books
+                                .Include(b => b.Author)
+                                .Include(b => b.Category)
+                                .ToList();
 
+            lvBooks.ItemsSource = books;
+        }
     }
 }

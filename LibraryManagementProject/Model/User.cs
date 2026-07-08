@@ -22,4 +22,12 @@ public partial class User
     public virtual ICollection<BorrowRecord> BorrowRecords { get; set; } = new List<BorrowRecord>();
 
     public virtual Role Role { get; set; } = null!;
+
+    public string StatusText
+    {
+        get
+        {
+            return Status == true ? "Active" : "Inactive";
+        }
+    }
 }

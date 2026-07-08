@@ -1,0 +1,98 @@
+﻿<Page x:Class="LibraryManagementProject.Views.MemberPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Background="#ECF0F1">
+
+    <Grid Margin="10">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+
+        <ListView x:Name="lvMembers"
+                  Grid.Column="0"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
+
+            <ListView.View>
+                <GridView>
+
+
+                    <GridViewColumn Header="ID"
+                                    Width="60"
+                                    DisplayMemberBinding="{Binding MemberId}"/>
+
+
+                    <GridViewColumn Header="Full Name"
+                                    Width="180"
+                                    DisplayMemberBinding="{Binding FullName}"/>
+
+
+                    <GridViewColumn Header="Email"
+                                    Width="220"
+                                    DisplayMemberBinding="{Binding Email}"/>
+
+
+                    <GridViewColumn Header="Phone"
+                                    Width="120"
+                                    DisplayMemberBinding="{Binding Phone}"/>
+
+
+                    <GridViewColumn Header="Address"
+                                    Width="200"
+                                    DisplayMemberBinding="{Binding Address}"/>
+
+
+                    <GridViewColumn Header="Gender"
+                                    Width="100"
+                                    DisplayMemberBinding="{Binding GenderText}"/>       
+
+
+                    <GridViewColumn Header="Join Date"
+                                    Width="120"
+                                    DisplayMemberBinding="{Binding JoinDate}"/>
+
+
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+
+
+        <StackPanel Grid.Column="1"
+                    Margin="15,0,0,0"
+                    VerticalAlignment="Top">
+
+
+            <Button x:Name="btnAdd"
+                    Content="Add Member"
+                    Width="130"
+                    Height="35"
+                    Margin="0,0,0,10"/>
+
+
+            <Button x:Name="btnUpdate"
+                    Content="Update"
+                    Width="130"
+                    Height="35"
+                    Margin="0,0,0,10"/>
+
+
+            <Button x:Name="btnDelete"
+                    Content="Delete"
+                    Width="130"
+                    Height="35"
+                    Margin="0,0,0,10"/>
+
+
+        </StackPanel>
+
+
+    </Grid>
+
+</Page>

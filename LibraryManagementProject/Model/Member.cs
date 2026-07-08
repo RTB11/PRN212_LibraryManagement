@@ -23,5 +23,13 @@ public partial class Member
 
     public bool? Status { get; set; }
 
+    public string GenderText
+    {
+        get
+        {
+            return Gender == true ? "Male" : "Female";
+        }
+    }
+
     public virtual ICollection<BorrowRecord> BorrowRecords { get; set; } = new List<BorrowRecord>();
 }

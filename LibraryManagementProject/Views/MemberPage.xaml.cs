@@ -15,22 +15,22 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementProject.Views
 {
-    public partial class AdminDashboard : Page
+
+
+    public partial class MemberPage : Page
     {
         private readonly LibraryContext _context = new();
 
-        public AdminDashboard()
+        public MemberPage()
         {
             InitializeComponent();
-            LoadDashboard();
+            LoadMembers();
         }
 
-        private void LoadDashboard()
+
+        private void LoadMembers()
         {
-            txtTotalBooks.Text = _context.Books.Count().ToString();
-            txtTotalMembers.Text = _context.Members.Count().ToString();
-            txtTotalBorrows.Text = _context.BorrowRecords.Count(x => x.Status == "Borrowing").ToString();
-            txtTotalUsers.Text = _context.Users.Count().ToString();
+            lvMembers.ItemsSource = _context.Members.ToList();
         }
 
     }

@@ -1,0 +1,53 @@
+﻿<Window x:Class="LibraryManagementProject.Views.AdminFrameDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraryManagementProject.Views"
+        mc:Ignorable="d"
+        Title="AdminFrameDashboard" Height="450" Width="800">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#1565C0">
+
+            <TextBlock Text="LIBRARY MANAGEMENT SYSTEM"
+                   Foreground="White"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   Margin="20,0"/>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Background="#1565C0">
+
+                <Button Content="Dashboard" Click="Dashboard_Click" Margin="5" Height="30"/>
+                <Button Content="Books" Click="Books_Click" Margin="5" Height="30"/>
+                <Button Content="Authors" Click="Authors_Click" Margin="5" Height="30"/>
+                <Button Content="Categories" Click="Categories_Click" Margin="5" Height="30"/>
+                <Button Content="Members" Click="Members_Click" Margin="5" Height="30"/>
+                <Button Content="Users" Click="Users_Click" Margin="5" Height="30"/>
+                <Button Content="Logout" Margin="5" Height="30"/>
+
+            </StackPanel>
+
+            <Frame x:Name="MainFrame"
+               Grid.Column="1"
+               NavigationUIVisibility="Hidden"/>
+
+        </Grid>
+
+    </Grid>
+</Window>
