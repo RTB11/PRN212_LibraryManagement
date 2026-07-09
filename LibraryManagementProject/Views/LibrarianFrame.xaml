@@ -52,8 +52,16 @@
                         Content="Borrow History"
                         Height="30"
                         Margin="5"/>
-                
-                <Button Content="Logout" Height="30" Margin="5"/>
+
+                <Button Click="PasswordChange_Click" 
+                        Content="Change Password" 
+                        Height="30" 
+                        Margin="5"/>
+
+                <Button Click="Logout_Click" 
+                        Content="Logout" 
+                        Height="30" 
+                        Margin="5"/>
 
             </StackPanel>
 

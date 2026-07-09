@@ -5,15 +5,38 @@
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
           mc:Ignorable="d"
           Background="#ECF0F1">
+        
+        
         <Grid Margin="10">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="900"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
 
-            <ListView x:Name="lvBooks"
-                  Grid.Column="0" 
+        <StackPanel Grid.Row="0"
+            Grid.Column="0"
+            Orientation="Horizontal"
+            VerticalAlignment="Center">
+
+            <TextBlock Text="Category:"
+               VerticalAlignment="Center"
+               Margin="0,0,10,0"/>
+
+            <ComboBox x:Name="cbCategory"
+              Width="200"
+              SelectionChanged="cbCategory_SelectionChanged"/>
+
+        </StackPanel>
+
+
+        <ListView x:Name="lvBooks"
+                  Grid.Column="0"
+                  Grid.Row="1"
                   SelectionChanged="lvBooks_SelectionChanged"    
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto">
@@ -56,6 +79,7 @@
             </ListView>
 
             <StackPanel Grid.Column="1"
+                        Grid.Row="1"
                     Margin="15,0,0,0"
                     VerticalAlignment="Top">
 

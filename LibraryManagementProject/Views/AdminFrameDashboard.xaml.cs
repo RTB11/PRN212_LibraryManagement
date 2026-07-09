@@ -44,12 +44,10 @@ namespace LibraryManagementProject.Views
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show(
-                                           "Are you sure you want to logout?",
-                                           "Logout",
-                                           MessageBoxButton.YesNo,
-                                           MessageBoxImage.Question
-                                       );
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to logout?","Logout",
+                                                           MessageBoxButton.YesNo,
+                                                           MessageBoxImage.Question
+                                                       );
 
             if (result == MessageBoxResult.Yes)
             {
@@ -57,6 +55,12 @@ namespace LibraryManagementProject.Views
                 LoginWindow login = new LoginWindow();
                 login.Show();
             }
+        }
+
+        private void PasswordChange_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePassword changePassword = new ChangePassword();
+            changePassword.Show();
         }
     }
 }

@@ -7,39 +7,39 @@
       Background="#F5F6FA"
       Title="Borrow History">
 
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-    <Grid Margin="20">
+        <Grid Margin="20">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
 
-        <!-- Header -->
-        <Border Background="White"
+            <Border Background="White"
                 CornerRadius="10"
                 Padding="20"
                 Margin="0,0,0,15">
 
-            <StackPanel>
+                <StackPanel>
 
-                <TextBlock Text="Borrow History"
+                    <TextBlock Text="Borrow History"
                            FontSize="28"
                            FontWeight="Bold"/>
 
 
-                <TextBlock Text="View all borrowing records and status."
+                    <TextBlock Text="View all borrowing records and status."
                            Foreground="Gray"
                            Margin="0,5,0,20"/>
 
 
-                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
 
 
-                    <TextBox x:Name="txtSearch"
+                        <TextBox x:Name="txtSearch"
                              Width="250"
                              Height="35"
                              Margin="0,0,10,0"
@@ -47,186 +47,162 @@
                              ToolTip="Search Borrow Code or Member"/>
 
 
-                    <ComboBox x:Name="cbStatus"
+                        <ComboBox x:Name="cbStatus"
                               Width="150"
                               Height="35"
                               Margin="0,0,10,0">
 
-                        <ComboBoxItem Content="All"
+                            <ComboBoxItem Content="All"
                                       IsSelected="True"/>
 
-                        <ComboBoxItem Content="Borrowing"/>
+                            <ComboBoxItem Content="Borrowing"/>
+                            <ComboBoxItem Content="Returned"/>
 
-                        <ComboBoxItem Content="Returned"/>
-
-                    </ComboBox>
+                        </ComboBox>
 
 
-                    <Button x:Name="btnSearch"
+                        <Button x:Name="btnSearch"
                             Width="100"
                             Height="35"
                             Content="Search"/>
 
 
-                    <Button x:Name="btnRefresh"
+                        <Button x:Name="btnRefresh"
                             Width="100"
                             Height="35"
                             Margin="10,0,0,0"
                             Content="Refresh"/>
 
+                    </StackPanel>
 
                 </StackPanel>
 
-            </StackPanel>
+            </Border>
 
-        </Border>
-
-
-
-        <!-- Borrow Record List -->
-        <Border Grid.Row="1"
+            <Border Grid.Row="1"
                 Background="White"
                 CornerRadius="10"
                 Padding="15">
 
 
-            <StackPanel>
+                <StackPanel>
 
-
-                <TextBlock Text="Borrow Records"
+                    <TextBlock Text="Borrow Records"
                            FontSize="18"
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
 
-
-                <DataGrid x:Name="dgBorrowHistory"
+                    <DataGrid x:Name="dgBorrowHistory"
                           AutoGenerateColumns="False"
                           IsReadOnly="True"
                           SelectionMode="Single"
                           Height="240">
 
+                        <DataGrid.Columns>
 
-                    <DataGrid.Columns>
-
-
-                        <DataGridTextColumn Header="Borrow Code"
+                            <DataGridTextColumn Header="Borrow Code"
                                             Binding="{Binding BorrowCode}"
                                             Width="120"/>
 
 
-                        <DataGridTextColumn Header="Member"
+                            <DataGridTextColumn Header="Member"
                                             Binding="{Binding Member.FullName}"
                                             Width="180"/>
 
 
-                        <DataGridTextColumn Header="Borrow Date"
+                            <DataGridTextColumn Header="Borrow Date"
                                             Binding="{Binding BorrowDate}"
                                             Width="120"/>
 
 
-                        <DataGridTextColumn Header="Due Date"
+                            <DataGridTextColumn Header="Due Date"
                                             Binding="{Binding DueDate}"
                                             Width="120"/>
 
 
-                        <DataGridTextColumn Header="Total Books"
+                            <DataGridTextColumn Header="Total Books"
                                             Binding="{Binding TotalBooks}"
                                             Width="90"/>
 
 
-                        <DataGridTextColumn Header="Status"
+                            <DataGridTextColumn Header="Status"
                                             Binding="{Binding Status}"
                                             Width="100"/>
 
+                        </DataGrid.Columns>
 
-                    </DataGrid.Columns>
+                    </DataGrid>
 
-
-                </DataGrid>
-
-
-            </StackPanel>
+                </StackPanel>
 
 
-        </Border>
+            </Border>
 
-
-
-
-        <!-- Borrow Detail -->
-        <Border Grid.Row="3"
+            <Border Grid.Row="3"
                 Background="White"
                 CornerRadius="10"
                 Padding="15">
 
+                <Grid>
 
-            <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-
-                <Grid.RowDefinitions>
-
-                    <RowDefinition Height="Auto"/>
-
-                    <RowDefinition Height="*"/>
-
-                </Grid.RowDefinitions>
-
-
-
-                <TextBlock Text="Borrow Details"
+                    <TextBlock Text="Borrow Details"
                            FontSize="18"
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
 
-
-
-                <DataGrid x:Name="dgBorrowDetails"
+                    <DataGrid x:Name="dgBorrowDetails"
                           Grid.Row="1"
                           AutoGenerateColumns="False"
                           IsReadOnly="True">
 
 
-                    <DataGrid.Columns>
+                        <DataGrid.Columns>
 
 
-                        <DataGridTextColumn Header="Book"
+                            <DataGridTextColumn Header="Book"
                                             Binding="{Binding Book.Title}"
                                             Width="250"/>
 
 
-                        <DataGridTextColumn Header="Quantity"
+                            <DataGridTextColumn Header="Quantity"
                                             Binding="{Binding Quantity}"
                                             Width="80"/>
 
 
-                        <DataGridTextColumn Header="Return Date"
+                            <DataGridTextColumn Header="Return Date"
                                             Binding="{Binding ReturnDate}"
                                             Width="120"/>
 
 
-                        <DataGridTextColumn Header="Fine Amount"
+                            <DataGridTextColumn Header="Fine Amount"
                                             Binding="{Binding FineAmount}"
                                             Width="100"/>
 
 
-                        <DataGridTextColumn Header="Status"
+                            <DataGridTextColumn Header="Status"
                                             Binding="{Binding Status}"
                                             Width="120"/>
 
 
-                    </DataGrid.Columns>
+                        </DataGrid.Columns>
 
 
-                </DataGrid>
+                    </DataGrid>
 
 
-            </Grid>
+                </Grid>
 
 
-        </Border>
+            </Border>
 
 
-    </Grid>
-
+        </Grid>
+        
+    </ScrollViewer>
 
 </Page>
