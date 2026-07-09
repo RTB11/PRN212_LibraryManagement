@@ -1,12 +1,115 @@
-﻿<Window x:Class="LibraryManagementProject.Views.AuthorPage"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LibraryManagementProject.Views"
-        mc:Ignorable="d"
-        Title="AuthorPage" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
-</Window>
+﻿<Page x:Class="LibraryManagementProject.Views.AuthorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#ECF0F1">
+
+
+	<Grid Margin="10">
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="300"/>
+		</Grid.ColumnDefinitions>
+
+		<ListView x:Name="lvAuthors"
+                  Grid.Column="0"
+                  Margin="0,0,15,0"
+                  SelectionChanged="lvAuthors_SelectionChanged">
+
+
+			<ListView.View>
+
+				<GridView>
+
+
+					<GridViewColumn Header="ID"
+                                    Width="70"
+                                    DisplayMemberBinding="{Binding AuthorId}"/>
+
+
+					<GridViewColumn Header="Author Name"
+                                    Width="200"
+                                    DisplayMemberBinding="{Binding AuthorName}"/>
+
+
+					<GridViewColumn Header="Biography"
+                                    Width="300"
+                                    DisplayMemberBinding="{Binding Biography}"/>
+
+
+				</GridView>
+
+			</ListView.View>
+
+
+		</ListView>
+
+
+		<Border Grid.Column="1"
+                Background="White"
+                Padding="15">
+
+
+			<StackPanel>
+
+
+				<Label Content="Author Controller"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+
+
+
+				<Label Content="Author Name"
+                       Margin="0,20,0,5"/>
+
+
+				<TextBox x:Name="txtAuthorName"
+                         Height="30"/>
+
+
+
+
+				<Label Content="Biography"
+                       Margin="0,10,0,5"/>
+
+
+				<TextBox x:Name="txtBiography"
+                         Height="100"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"/>
+
+
+
+
+				<StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,25,0,0">
+
+
+					<Button x:Name="btnAdd"
+                            Content="Add"
+                            Width="70"
+                            Click="btnAdd_Click"/>
+
+
+					<Button x:Name="btnSave"
+                            Content="Save"
+                            Width="70"
+                            Margin="10,0,0,0"
+                            Click="btnSave_Click"/>
+
+
+				</StackPanel>
+
+
+			</StackPanel>
+
+
+		</Border>
+
+
+	</Grid>
+
+
+</Page>

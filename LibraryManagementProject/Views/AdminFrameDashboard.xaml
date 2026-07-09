@@ -39,7 +39,7 @@
                 <Button Content="Categories" Click="Categories_Click" Margin="5" Height="30"/>
                 <Button Content="Members" Click="Members_Click" Margin="5" Height="30"/>
                 <Button Content="Users" Click="Users_Click" Margin="5" Height="30"/>
-                <Button Content="Logout" Margin="5" Height="30"/>
+                <Button Content="Logout" Margin="5" Height="30" Click="Logout_Click"/>
 
             </StackPanel>
 

@@ -37,11 +37,15 @@ namespace LibraryManagementProject.Views
                     u.PasswordHash == txtPassword.Password &&
                     u.Status == true);
 
+            
+
             if (user == null)
             {
                 MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!");
                 return;
             }
+
+            UserSession.CurrentUser = user;
 
             if (user.Role.RoleName == "Admin")
             {
@@ -51,7 +55,9 @@ namespace LibraryManagementProject.Views
             }
             else if (user.Role.RoleName == "Librarian")
             {
-                MessageBox.Show("Chức năng Librarian đang được phát triển.");
+                LibrarianFrame LibrarianFrame = new LibrarianFrame();
+                LibrarianFrame.Show();
+                this.Close();
             }
             else
             {

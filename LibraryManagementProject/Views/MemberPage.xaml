@@ -17,7 +17,8 @@
         <ListView x:Name="lvMembers"
                   Grid.Column="0"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  SelectionChanged="lvMembers_SelectionChanged">
 
             <ListView.View>
                 <GridView>
@@ -73,22 +74,16 @@
                     Content="Add Member"
                     Width="130"
                     Height="35"
-                    Margin="0,0,0,10"/>
+                    Margin="0,0,0,10"
+                    Click="btnAdd_Click"/>
 
 
             <Button x:Name="btnUpdate"
                     Content="Update"
                     Width="130"
                     Height="35"
-                    Margin="0,0,0,10"/>
-
-
-            <Button x:Name="btnDelete"
-                    Content="Delete"
-                    Width="130"
-                    Height="35"
-                    Margin="0,0,0,10"/>
-
+                    Margin="0,0,0,10"
+                    Click="btnUpdate_Click"/>
 
         </StackPanel>
 

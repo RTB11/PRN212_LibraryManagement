@@ -21,6 +21,8 @@ namespace LibraryManagementProject.Views
     {
         private readonly LibraryContext _context = new();
 
+        private Book? _book;
+
         public BookListPageManager()
         {
             InitializeComponent();
@@ -37,5 +39,37 @@ namespace LibraryManagementProject.Views
 
             lvBooks.ItemsSource = books;
         }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            AddBookWindow window = new AddBookWindow();
+
+            window.ShowDialog(); 
+
+            LoadBooks();     
+        }
+
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvBooks.SelectedItem is not Book book)
+            {
+                MessageBox.Show("Please select a book!");
+                return;
+            }
+
+            AddBookWindow window = new AddBookWindow(book);
+
+            if (window.ShowDialog() == true)
+            {
+                LoadBooks();
+            }
+        }
+
+        private void lvBooks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _book = lvBooks.SelectedItem as Book;
+        }
+
     }
 }

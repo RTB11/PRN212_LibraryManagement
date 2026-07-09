@@ -31,6 +31,17 @@ public partial class Book
 
     public bool? Status { get; set; }
 
+    public string StatusText
+    {
+        get
+        {
+            if (Status == null)
+                return "Unknown";
+
+            return Status == true ? "Available" : "Unavailable";
+        }
+    }
+
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }

@@ -21,6 +21,8 @@ namespace LibraryManagementProject.Views
     {
         private readonly LibraryContext _context = new();
 
+        private Member? _selectedMember;
+        
         public MemberPage()
         {
             InitializeComponent();
@@ -31,6 +33,38 @@ namespace LibraryManagementProject.Views
         private void LoadMembers()
         {
             lvMembers.ItemsSource = _context.Members.ToList();
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            AddMemberForm window = new AddMemberForm();
+
+            if (window.ShowDialog() == true)
+            {
+                LoadMembers();
+            }
+        }
+
+
+        private void lvMembers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _selectedMember = lvMembers.SelectedItem as Member;
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedMember == null)
+            {
+                MessageBox.Show("Please select a member!");
+                return;
+            }
+
+            AddMemberForm window = new AddMemberForm(_selectedMember);
+
+            if (window.ShowDialog() == true)
+            {
+                LoadMembers();
+            }
         }
 
     }

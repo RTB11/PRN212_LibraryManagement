@@ -82,7 +82,7 @@ namespace LibraryManagementProject.Views
             MessageBox.Show("Update successfully");
             LoadAuthors();
 
-        }
+        } 
 
         private void ClearForm()
         {

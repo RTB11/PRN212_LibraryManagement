@@ -41,5 +41,22 @@ namespace LibraryManagementProject.Views
         {
             MainFrame.Navigate(new UserPage());
         }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(
+                                           "Are you sure you want to logout?",
+                                           "Logout",
+                                           MessageBoxButton.YesNo,
+                                           MessageBoxImage.Question
+                                       );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                this.Close();
+                LoginWindow login = new LoginWindow();
+                login.Show();
+            }
+        }
     }
 }

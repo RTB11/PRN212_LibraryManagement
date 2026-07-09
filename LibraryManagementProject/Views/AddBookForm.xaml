@@ -1,0 +1,71 @@
+﻿<Window x:Class="LibraryManagementProject.Views.AddBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add Book"
+        Height="600"
+        Width="400"
+        WindowStartupLocation="CenterScreen">
+
+
+    <ScrollViewer>
+
+        <StackPanel Margin="20">
+
+
+            <Label Content="Title"/>
+            <TextBox x:Name="txtTitle"/>
+
+
+            <Label Content="ISBN"/>
+            <TextBox x:Name="txtIsbn"/>
+
+
+            <Label Content="Author"/>
+
+            <ComboBox x:Name="cbAuthor"
+          DisplayMemberPath="AuthorName"
+          SelectedValuePath="AuthorId"/>
+
+
+
+            <Label Content="Category"/>
+
+            <ComboBox x:Name="cbCategory"
+          DisplayMemberPath="CategoryName"
+          SelectedValuePath="CategoryId"/>
+
+
+
+            <Label Content="Publisher"/>
+            <TextBox x:Name="txtPublisher"/>
+
+
+            <Label Content="Publish Year"/>
+            <TextBox x:Name="txtPublishYear"/>
+
+
+            <Label Content="Price"/>
+            <TextBox x:Name="txtPrice"/>
+
+
+            <Label Content="Quantity"/>
+            <TextBox x:Name="txtQuantity"/>
+
+
+            <Label Content="Shelf"/>
+            <TextBox x:Name="txtShelf"/>
+
+
+
+            <Button Content="Save"
+                    Width="100"
+                    Margin="0,20,0,0"
+                    Click="btnSave_Click"/>
+
+
+        </StackPanel>
+
+    </ScrollViewer>
+
+
+</Window>
