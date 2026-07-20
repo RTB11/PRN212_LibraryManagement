@@ -49,6 +49,7 @@ namespace LibraryManagementProject.Views
                 .ToList();
         }
 
+
         private void btnSearchMember_Click(object sender, RoutedEventArgs e)
         {
             string keyword = txtMemberKeyword.Text.Trim();

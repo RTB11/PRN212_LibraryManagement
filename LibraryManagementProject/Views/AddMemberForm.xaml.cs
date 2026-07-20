@@ -6,12 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace LibraryManagementProject.Views
 {
@@ -61,6 +56,9 @@ namespace LibraryManagementProject.Views
         {
             Member member;
 
+             if (!ValidateInput())
+                return;
+
             if (_member == null)
             {
                 member = new Member();
@@ -106,6 +104,51 @@ namespace LibraryManagementProject.Views
             DialogResult = true;
             Close();
         }
-    
+
+        private bool ValidateInput()
+        {
+            if (string.IsNullOrWhiteSpace(txtFullName.Text))
+            {
+                MessageBox.Show("Full Name is required!");
+                txtFullName.Focus();
+                return false;
+            }
+
+            string phone = txtPhone.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(phone))
+            {
+                MessageBox.Show("Phone is required!");
+                txtPhone.Focus();
+                return false;
+            }
+
+            if (!Regex.IsMatch(phone, @"^\d{10,11}$"))
+            {
+                MessageBox.Show("Phone number must contain only digits and be 10-11 digits long!");
+                txtPhone.Focus();
+                return false;
+            }
+
+            string email = txtEmail.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                MessageBox.Show("Email is required!");
+                txtEmail.Focus();
+                return false;
+            }
+
+            if (!Regex.IsMatch(email,
+                @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"))
+            {
+                MessageBox.Show("Invalid email format!");
+                txtEmail.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

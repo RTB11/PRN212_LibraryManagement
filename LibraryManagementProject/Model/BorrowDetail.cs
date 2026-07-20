@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryManagementProject.Model;
 
@@ -25,5 +26,6 @@ public partial class BorrowDetail
 
     public virtual BorrowRecord Borrow { get; set; } = null!;
 
+    [NotMapped]
     public bool IsSelected { get; set; }
 }

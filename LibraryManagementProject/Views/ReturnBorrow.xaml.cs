@@ -7,13 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace LibraryManagementProject.Views
 {
@@ -49,9 +43,7 @@ namespace LibraryManagementProject.Views
                 .Include(x => x.Member)
                 .Where(x =>
                     x.Status == "Borrowing" &&
-                    (
-                        x.BorrowCode.ToLower().Contains(keyword) || x.Member.FullName.ToLower().Contains(keyword)
-                    ))
+                    (x.BorrowCode.ToLower().Contains(keyword) || x.Member.FullName.ToLower().Contains(keyword)))
                 .ToList();
         }
 
@@ -118,9 +110,9 @@ namespace LibraryManagementProject.Views
 
         private void btnReturnSelected_Click(object sender, RoutedEventArgs e)
         {
-            var details = dgBorrowDetails.SelectedItems
-                                .Cast<BorrowDetail>()
-                                .ToList();
+            var details = ((IEnumerable<BorrowDetail>)dgBorrowDetails.ItemsSource)
+                            .Where(x => x.IsSelected)
+                            .ToList();
 
             if (details.Count == 0)
             {
@@ -144,10 +136,7 @@ namespace LibraryManagementProject.Views
 
                 if (DateOnly.FromDateTime(DateTime.Now) > selectedBorrow!.DueDate)
                 {
-                    int late =
-                        DateOnly.FromDateTime(DateTime.Now).DayNumber
-                        - selectedBorrow.DueDate.DayNumber;
-
+                    int late = DateOnly.FromDateTime(DateTime.Now).DayNumber - selectedBorrow.DueDate.DayNumber;
 
                     detail.FineAmount = late * 5000;
                 }
@@ -155,7 +144,7 @@ namespace LibraryManagementProject.Views
 
             bool allReturned = _context.BorrowDetails
                 .Where(x => x.BorrowId == selectedBorrow.BorrowId)
-                .All(x => x.Status == "Returned");
+                .All(x => x.Status == "Returned"); 
 
             if (allReturned)
             {

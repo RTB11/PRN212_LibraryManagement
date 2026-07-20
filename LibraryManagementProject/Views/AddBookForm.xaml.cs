@@ -54,6 +54,11 @@ namespace LibraryManagementProject.Views
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             Book book;
+            
+            if(!ValidateInput())
+            {
+                return;
+            }
 
             if (_book == null)
             {
@@ -98,5 +103,55 @@ namespace LibraryManagementProject.Views
             DialogResult = true;
             Close();
         }
-    }
+
+        private bool ValidateInput()
+        {
+            if (string.IsNullOrWhiteSpace(txtTitle.Text))
+            {
+                MessageBox.Show("Please enter title");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtIsbn.Text))
+            {
+                MessageBox.Show("Please enter ISBN");
+                return false;
+            }
+            if (cbAuthor.SelectedItem == null)
+            {
+                MessageBox.Show("Please select author");
+                return false;
+            }
+            if (cbCategory.SelectedItem == null)
+            {
+                MessageBox.Show("Please select category");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtPublisher.Text))
+            {
+                MessageBox.Show("Please enter publisher");
+                return false;
+            }
+            if (!int.TryParse(txtPublishYear.Text, out _))
+            {
+                MessageBox.Show("Please enter valid publish year");
+                return false;
+            }
+            if (!decimal.TryParse(txtPrice.Text, out _))
+            {
+                MessageBox.Show("Please enter valid price");
+                return false;
+            }
+            if (!int.TryParse(txtQuantity.Text, out _))
+            {
+                MessageBox.Show("Please enter valid quantity");
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtShelf.Text))
+            {
+                MessageBox.Show("Please enter shelf");
+                return false;
+            }
+            return true;
+            }
+        }
 }

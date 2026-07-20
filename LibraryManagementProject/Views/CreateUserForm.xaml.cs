@@ -32,6 +32,9 @@ namespace LibraryManagementProject.Views
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
 
+            if (!Validation())
+                return;
+
             User user = new User();
 
 
@@ -59,6 +62,31 @@ namespace LibraryManagementProject.Views
 
             Close();
 
+        }
+
+        private bool Validation()
+        {
+            if (string.IsNullOrEmpty(txtUsername.Text))
+            {
+                MessageBox.Show("Please enter username");
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtPassword.Password))
+            {
+                MessageBox.Show("Please enter password");
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtFullName.Text))
+            {
+                MessageBox.Show("Please enter full name");
+                return false;
+            }
+            if (cbRole.SelectedItem == null)
+            {
+                MessageBox.Show("Please select role");
+                return false;
+            }
+            return true;
         }
 
     }
