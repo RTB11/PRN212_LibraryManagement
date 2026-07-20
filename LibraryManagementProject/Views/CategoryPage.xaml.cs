@@ -50,6 +50,7 @@ namespace LibraryManagementProject.Views
                 MessageBox.Show("Category name is required");
                 return;
             }
+
             Category category = new Category();
 
             category.CategoryName = txtCategoryName.Text;

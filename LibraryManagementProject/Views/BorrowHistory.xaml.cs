@@ -38,9 +38,7 @@ namespace LibraryManagementProject.Views
 
 
 
-        private void dgBorrowHistory_SelectionChanged(
-            object sender,
-            SelectionChangedEventArgs e)
+        private void dgBorrowHistory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedBorrow = dgBorrowHistory.SelectedItem as BorrowRecord;
 
@@ -71,10 +69,7 @@ namespace LibraryManagementProject.Views
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                query = query.Where(x =>
-                    x.BorrowCode.Contains(keyword)
-                    ||
-                    x.Member.FullName.Contains(keyword));
+                query = query.Where(x => x.BorrowCode.Contains(keyword) || x.Member.FullName.Contains(keyword));
             }
 
             if (cbStatus.SelectedItem is ComboBoxItem item)
@@ -88,8 +83,7 @@ namespace LibraryManagementProject.Views
                 }
             }
 
-            dgBorrowHistory.ItemsSource =
-                query.OrderByDescending(x => x.CreatedAt)
+            dgBorrowHistory.ItemsSource = query.OrderByDescending(x => x.CreatedAt)
                      .ToList();
         }
 

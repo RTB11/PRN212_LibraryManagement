@@ -17,9 +17,7 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementProject.Views
 {
-    /// <summary>
-    /// Interaction logic for ReturnBorrow.xaml
-    /// </summary>
+
     public partial class ReturnBorrow : Page
     {
         private readonly LibraryContext _context = new();
@@ -32,7 +30,6 @@ namespace LibraryManagementProject.Views
 
             LoadBorrowRecords();
 
-            dgBorrowRecords.SelectionChanged += dgBorrowRecords_SelectionChanged;
         }
 
         private void LoadBorrowRecords()
@@ -53,8 +50,7 @@ namespace LibraryManagementProject.Views
                 .Where(x =>
                     x.Status == "Borrowing" &&
                     (
-                        x.BorrowCode.ToLower().Contains(keyword)
-                        || x.Member.FullName.ToLower().Contains(keyword)
+                        x.BorrowCode.ToLower().Contains(keyword) || x.Member.FullName.ToLower().Contains(keyword)
                     ))
                 .ToList();
         }
@@ -80,10 +76,7 @@ namespace LibraryManagementProject.Views
                 return;
             }
 
-            if (MessageBox.Show( "Return all books?","Confirm",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question)
-                != MessageBoxResult.Yes)
+            if (MessageBox.Show( "Return all books?","Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
             {
                 return;
             }
@@ -125,39 +118,44 @@ namespace LibraryManagementProject.Views
 
         private void btnReturnSelected_Click(object sender, RoutedEventArgs e)
         {
-            var detail = dgBorrowDetails.SelectedItem as BorrowDetail;
+            var details = dgBorrowDetails.SelectedItems
+                                .Cast<BorrowDetail>()
+                                .ToList();
 
-            if (detail == null)
+            if (details.Count == 0)
             {
                 MessageBox.Show("Please select a book.");
                 return;
             }
 
-            if (detail.Status == "Returned")
+
+            foreach (var detail in details)
             {
-                MessageBox.Show("Book already returned.");
-                return;
-            }
+                if (detail.Status == "Returned")
+                    continue;
 
-            detail.Status = "Returned";
-            detail.ReturnDate = DateOnly.FromDateTime(DateTime.Now);
+                detail.Status = "Returned";
 
-            var book = _context.Books.First(x => x.BookId == detail.BookId);
+                detail.ReturnDate = DateOnly.FromDateTime(DateTime.Now);
+                var book = _context.Books
+                    .First(x => x.BookId == detail.BookId);
 
-            book.AvailableQuantity += detail.Quantity ?? 1;
+                book.AvailableQuantity += detail.Quantity ?? 1;
 
-            if (DateOnly.FromDateTime(DateTime.Now) > selectedBorrow!.DueDate)
-            {
-                int late =
-                    DateOnly.FromDateTime(DateTime.Now).DayNumber
-                    - selectedBorrow.DueDate.DayNumber;
+                if (DateOnly.FromDateTime(DateTime.Now) > selectedBorrow!.DueDate)
+                {
+                    int late =
+                        DateOnly.FromDateTime(DateTime.Now).DayNumber
+                        - selectedBorrow.DueDate.DayNumber;
 
-                detail.FineAmount = late * 5000;
+
+                    detail.FineAmount = late * 5000;
+                }
             }
 
             bool allReturned = _context.BorrowDetails
                 .Where(x => x.BorrowId == selectedBorrow.BorrowId)
-                .All(x => x.Status == "Returned" || x.BorrowDetailId == detail.BorrowDetailId);
+                .All(x => x.Status == "Returned");
 
             if (allReturned)
             {
@@ -165,12 +163,9 @@ namespace LibraryManagementProject.Views
             }
 
             _context.SaveChanges();
-
             dgBorrowRecords_SelectionChanged(null, null);
-
             LoadBorrowRecords();
-
-            MessageBox.Show("Book returned.");
+            MessageBox.Show("Books returned.");
         }
 
 

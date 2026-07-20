@@ -5,14 +5,14 @@
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
           mc:Ignorable="d"
           Background="#ECF0F1">
-        
-        
-        <Grid Margin="10">
 
-            <Grid.ColumnDefinitions>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="900"/>
                 <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="300"/>
@@ -80,7 +80,7 @@
 
             <StackPanel Grid.Column="1"
                         Grid.Row="1"
-                    Margin="15,0,0,0"
+                    Margin="15,0,15,0"
                     VerticalAlignment="Top">
 
             <Button x:Name="btnAdd"

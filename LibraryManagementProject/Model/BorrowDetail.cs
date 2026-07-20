@@ -24,4 +24,6 @@ public partial class BorrowDetail
     public virtual Book Book { get; set; } = null!;
 
     public virtual BorrowRecord Borrow { get; set; } = null!;
+
+    public bool IsSelected { get; set; }
 }

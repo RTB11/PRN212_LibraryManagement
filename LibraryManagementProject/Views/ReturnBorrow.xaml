@@ -67,10 +67,11 @@
                            Margin="0,0,0,10"/>
 
                     <DataGrid x:Name="dgBorrowRecords"
-                          AutoGenerateColumns="False"
-                          SelectionMode="Single"
-                          IsReadOnly="True"
-                          Height="250">
+                              AutoGenerateColumns="False"
+                              SelectionMode="Single"
+                              IsReadOnly="True"
+                              Height="250"
+                              SelectionChanged="dgBorrowRecords_SelectionChanged">          
 
                         <DataGrid.Columns>
 
@@ -132,7 +133,7 @@
 
                         <DataGrid.Columns>
 
-                            <DataGridCheckBoxColumn Width="50"/>
+                            <DataGridCheckBoxColumn Width="50" Binding="{Binding IsSelected}"/>
 
                             <DataGridTextColumn Header="Book"
                                             Binding="{Binding Book.Title}"

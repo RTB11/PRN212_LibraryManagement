@@ -17,9 +17,7 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementProject.Views
 {
-    /// <summary>
-    /// Interaction logic for LibrarianDashboard.xaml
-    /// </summary>
+
     public partial class LibrarianDashboard : Page
     {
 

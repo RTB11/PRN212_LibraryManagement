@@ -1,25 +1,17 @@
 ﻿using LibraryManagementProject.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace LibraryManagementProject.Views
 {
   
     public partial class BookListPageManager : Page
     {
-        private readonly LibraryContext _context = new();
+        readonly LibraryContext _context = new LibraryContext();
 
         private Book? _book;
 
@@ -33,9 +25,7 @@ namespace LibraryManagementProject.Views
 
         private void LoadBooks()
         {
-            var books = _context.Books
-                                .Include(b => b.Author)
-                                .Include(b => b.Category)
+            var books = _context.Books.Include(b => b.Author).Include(b => b.Category)
                                 .ToList();
 
             lvBooks.ItemsSource = books;
@@ -43,9 +33,7 @@ namespace LibraryManagementProject.Views
 
         private void LoadCategories()
         {
-            var categories = _context.Categories
-                                     .OrderBy(c => c.CategoryName)
-                                     .ToList();
+            var categories = _context.Categories.OrderBy(c => c.CategoryName).ToList();
 
             categories.Insert(0, new Category
             {
@@ -61,8 +49,7 @@ namespace LibraryManagementProject.Views
 
         private void FilterBooks()
         {
-            var query = _context.Books
-                                .Include(b => b.Author)
+            var query = _context.Books.Include(b => b.Author)
                                 .Include(b => b.Category)
                                 .AsQueryable();
 
@@ -78,7 +65,6 @@ namespace LibraryManagementProject.Views
         {
             if (!IsLoaded)
                 return;
-
             FilterBooks();
         }
 
