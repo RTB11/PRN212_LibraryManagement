@@ -7,21 +7,17 @@ public partial class BorrowRecord
 {
     public int BorrowId { get; set; }
 
-    public string BorrowCode { get; set; } = null!;
+    public string? BorrowCode { get; set; }
 
     public int MemberId { get; set; }
 
-    public DateOnly? BorrowDate { get; set; }
+    public DateOnly BorrowDate { get; set; }
 
     public DateOnly DueDate { get; set; }
 
-    public int? TotalBooks { get; set; }
-
-    public string? Status { get; set; }
+    public string Status { get; set; } = null!;
 
     public int UserId { get; set; }
-
-    public string? Note { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 

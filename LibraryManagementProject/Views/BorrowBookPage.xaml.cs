@@ -99,6 +99,8 @@ namespace LibraryManagementProject.Views
                 return;
             }
 
+            book.BorrowCondition = "Good";
+
             borrowBooks.Add(book);
         }
 
@@ -142,7 +144,6 @@ namespace LibraryManagementProject.Views
                 MemberId = selectedMember.MemberId,
                 BorrowDate = DateOnly.FromDateTime(DateTime.Now),
                 DueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(14)),
-                TotalBooks = borrowBooks.Count,
                 Status = "Borrowing",
                 UserId = UserSession.CurrentUser.UserId,
                 CreatedAt = DateTime.Now
@@ -157,7 +158,12 @@ namespace LibraryManagementProject.Views
                     BorrowId = record.BorrowId,
                     BookId = book.BookId,
                     Quantity = 1,
-                    Status = "Borrowing"
+
+                    Status = "Borrowing",
+
+                    BorrowCondition = book.BorrowCondition,
+
+                    BorrowNote = null
                 };
 
                 _context.BorrowDetails.Add(detail);

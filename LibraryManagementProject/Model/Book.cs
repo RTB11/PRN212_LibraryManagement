@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryManagementProject.Model;
 
@@ -19,8 +20,6 @@ public partial class Book
 
     public int? PublishYear { get; set; }
 
-    public decimal? Price { get; set; }
-
     public int Quantity { get; set; }
 
     public int AvailableQuantity { get; set; }
@@ -31,24 +30,12 @@ public partial class Book
 
     public bool? Status { get; set; }
 
-    public string StatusText
-    {
-        get
-        {
-            if (Status == null)
-                return "Unknown";
-
-            return Status == true ? "Available" : "Unavailable";
-        }
-    }
-
-    public DateTime? CreatedAt { get; set; }
-
-    public DateTime? UpdatedAt { get; set; }
-
     public virtual Author Author { get; set; } = null!;
 
     public virtual ICollection<BorrowDetail> BorrowDetails { get; set; } = new List<BorrowDetail>();
+
+    [NotMapped]
+    public string BorrowCondition { get; set; } = "Good";
 
     public virtual Category Category { get; set; } = null!;
 }

@@ -11,7 +11,7 @@ namespace LibraryManagementProject.Views
 
         private readonly LibraryContext _context = new();
 
-        private User selectedUser;
+        private User? selectedUser;
 
 
         public UserPage()
@@ -28,6 +28,7 @@ namespace LibraryManagementProject.Views
             };
         }
 
+
         private void LoadUsers()
         {
             lvUsers.ItemsSource = _context.Users
@@ -40,6 +41,7 @@ namespace LibraryManagementProject.Views
         private void LoadRoles()
         {
             cbRole.ItemsSource = _context.Roles.ToList();
+
             cbRole.DisplayMemberPath = "RoleName";
             cbRole.SelectedValuePath = "RoleId";
         }
@@ -48,25 +50,25 @@ namespace LibraryManagementProject.Views
 
         private void lvUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             selectedUser = lvUsers.SelectedItem as User;
 
 
             if (selectedUser != null)
             {
-
                 txtUsername.Text = selectedUser.Username;
                 txtFullName.Text = selectedUser.FullName;
+
                 cbRole.SelectedValue = selectedUser.RoleId;
+
 
                 cbStatus.SelectedItem =
                     selectedUser.Status == true
                     ? "Active"
                     : "Inactive";
-
             }
-
         }
+
+
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -78,6 +80,12 @@ namespace LibraryManagementProject.Views
             }
 
 
+            if (cbRole.SelectedValue == null)
+            {
+                MessageBox.Show("Please select role");
+                return;
+            }
+
 
             selectedUser.RoleId =
                 (int)cbRole.SelectedValue;
@@ -85,14 +93,19 @@ namespace LibraryManagementProject.Views
 
 
             selectedUser.Status =
-                cbStatus.SelectedItem.ToString() == "Active";
-
+                cbStatus.SelectedItem?.ToString() == "Active";
 
 
             _context.SaveChanges();
+
+
             MessageBox.Show("Updated successfully");
-            FilterUsers();
+
+
+            LoadUsers();
         }
+
+
 
         private void FilterUsers()
         {
@@ -100,30 +113,39 @@ namespace LibraryManagementProject.Views
                 .Include(x => x.Role)
                 .AsQueryable();
 
+
+
             if (cbFilterStatus.SelectedItem is ComboBoxItem item)
             {
                 string status = item.Content.ToString();
 
+
                 if (status == "Active")
                 {
-                    query = query.Where(x => x.Status.Value);
+                    query = query.Where(x => x.Status == true);
                 }
                 else if (status == "Inactive")
                 {
-                    query = query.Where(x => !x.Status.Value);
+                    query = query.Where(x => x.Status == false);
                 }
             }
 
+
             lvUsers.ItemsSource = query.ToList();
         }
+
+
 
         private void cbFilterStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!IsLoaded)
                 return;
 
+
             FilterUsers();
         }
+
+
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
@@ -131,7 +153,8 @@ namespace LibraryManagementProject.Views
 
             form.ShowDialog();
 
-            FilterUsers();
+
+            LoadUsers();
         }
 
     }

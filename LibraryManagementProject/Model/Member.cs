@@ -15,21 +15,9 @@ public partial class Member
 
     public string? Address { get; set; }
 
-    public DateOnly? DateOfBirth { get; set; }
-
-    public bool? Gender { get; set; }
-
     public DateOnly? JoinDate { get; set; }
 
     public bool? Status { get; set; }
-
-    public string GenderText
-    {
-        get
-        {
-            return Gender == true ? "Male" : "Female";
-        }
-    }
 
     public virtual ICollection<BorrowRecord> BorrowRecords { get; set; } = new List<BorrowRecord>();
 }

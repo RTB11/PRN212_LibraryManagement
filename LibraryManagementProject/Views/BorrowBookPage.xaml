@@ -182,26 +182,47 @@
                     </StackPanel>
 
                     <DataGrid x:Name="dgBorrow"
-                          AutoGenerateColumns="False"
-                          IsReadOnly="True"
-                          SelectionMode="Single">
+          AutoGenerateColumns="False"
+          SelectionMode="Single">
 
                         <DataGrid.Columns>
 
                             <DataGridTextColumn Header="ISBN"
-                                            Binding="{Binding Isbn}"/>
+                            Binding="{Binding Isbn}"/>
 
                             <DataGridTextColumn Header="Title"
-                                            Width="220"
-                                            Binding="{Binding Title}"/>
+                            Width="220"
+                            Binding="{Binding Title}"/>
+
 
                             <DataGridTextColumn Header="Category"
-                                            Width="120"
-                                            Binding="{Binding Category.CategoryName}"/>
+                            Width="120"
+                            Binding="{Binding Category.CategoryName}"/>
+
 
                             <DataGridTextColumn Header="Author"
-                                            Width="180"
-                                            Binding="{Binding Author.AuthorName}"/>
+                            Width="180"
+                            Binding="{Binding Author.AuthorName}"/>
+
+
+                            <DataGridTemplateColumn Header="Condition"
+                                Width="120">
+
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <ComboBox SelectedValue="{Binding BorrowCondition}">
+                                            <ComboBoxItem Content="Good"/>
+                                            <ComboBoxItem Content="Fair"/>
+                                            <ComboBoxItem Content="Damaged"/>
+                                            <ComboBoxItem Content="Lost"/>
+                                        </ComboBox>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+
+                            </DataGridTemplateColumn>
+
 
                         </DataGrid.Columns>
 

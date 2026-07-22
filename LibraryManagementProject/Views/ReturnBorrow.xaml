@@ -137,15 +137,36 @@
 
                             <DataGridTextColumn Header="Book"
                                             Binding="{Binding Book.Title}"
-                                            Width="250"/>
-
-                            <DataGridTextColumn Header="Quantity"
-                                            Binding="{Binding Quantity}"
-                                            Width="80"/>
+                                            Width="150"/>
 
                             <DataGridTextColumn Header="Status"
                                             Binding="{Binding Status}"
                                             Width="100"/>
+
+                            <DataGridTemplateColumn Header="Return Condition"  Width="150">
+
+                                <DataGridTemplateColumn.CellTemplate>
+
+                                    <DataTemplate>
+
+                                        <ComboBox SelectedValue="{Binding ReturnCondition}"  SelectedValuePath="Content">
+
+                                            <ComboBoxItem Content="Good"/>
+
+                                            <ComboBoxItem Content="Fair"/>
+
+                                            <ComboBoxItem Content="Damaged"/>
+
+                                            <ComboBoxItem Content="Lost"/>
+
+                                        </ComboBox>
+
+                                    </DataTemplate>
+
+                                </DataGridTemplateColumn.CellTemplate>
+
+                            </DataGridTemplateColumn>
+
 
                             <DataGridTextColumn Header="Return Date"
                                             Binding="{Binding ReturnDate}"
