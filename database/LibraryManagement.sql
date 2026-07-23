@@ -393,6 +393,3 @@ VALUES
 );
 
 
-UPDATE Books
-SET AvailableQuantity = AvailableQuantity - 1
-WHERE BookId = 1;

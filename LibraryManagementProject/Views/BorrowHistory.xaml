@@ -100,14 +100,14 @@
 
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn Header="Borrow Code"
+                            <DataGridTextColumn Header="Code"
                                             Binding="{Binding BorrowCode}"
-                                            Width="120"/>
+                                            Width="60"/>
 
 
                             <DataGridTextColumn Header="Member"
                                             Binding="{Binding Member.FullName}"
-                                            Width="180"/>
+                                            Width="120"/>
 
 
                             <DataGridTextColumn Header="Borrow Date"
@@ -119,15 +119,13 @@
                                             Binding="{Binding DueDate}"
                                             Width="120"/>
 
-
-                            <DataGridTextColumn Header="Total Books"
-                                            Binding="{Binding TotalBooks}"
-                                            Width="90"/>
-
-
                             <DataGridTextColumn Header="Status"
                                             Binding="{Binding Status}"
                                             Width="100"/>
+                            <DataGridTextColumn Header="Reponsible"
+                                                Binding="{Binding User.FullName}"
+                                                Width="100"/>
+                           
 
                         </DataGrid.Columns>
 
@@ -166,12 +164,13 @@
 
                             <DataGridTextColumn Header="Book"
                                             Binding="{Binding Book.Title}"
-                                            Width="250"/>
+                                            Width="150"/>
 
+ 
 
-                            <DataGridTextColumn Header="Quantity"
-                                            Binding="{Binding Quantity}"
-                                            Width="80"/>
+                            <DataGridTextColumn Header="Return Condition"
+                                            Binding="{Binding ReturnCondition}"
+                                            Width="120"/>
 
 
                             <DataGridTextColumn Header="Return Date"

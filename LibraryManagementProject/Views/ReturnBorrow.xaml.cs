@@ -60,21 +60,15 @@ namespace LibraryManagementProject.Views
                 .ToList();
         }
 
-
-
-
-
         private void dgBorrowRecords_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedBorrow = dgBorrowRecords.SelectedItem as BorrowRecord;
-
 
             if (selectedBorrow == null)
             {
                 dgBorrowDetails.ItemsSource = null;
                 return;
             }
-
 
             borrowDetails =
                 new ObservableCollection<BorrowDetail>(
@@ -83,7 +77,6 @@ namespace LibraryManagementProject.Views
                     .Where(x => x.BorrowId == selectedBorrow.BorrowId)
                     .ToList()
                 );
-
 
             dgBorrowDetails.ItemsSource = borrowDetails;
         }
@@ -100,8 +93,6 @@ namespace LibraryManagementProject.Views
                 return;
             }
 
-
-
             if (MessageBox.Show(
                 "Return all books?",
                 "Confirm",
@@ -112,198 +103,135 @@ namespace LibraryManagementProject.Views
                 return;
             }
 
-
-
             var details =
                 _context.BorrowDetails
                 .Include(x => x.Book)
                 .Where(x => x.BorrowId == selectedBorrow.BorrowId)
                 .ToList();
 
-
-
             foreach (var detail in details)
             {
-
                 if (detail.Status == "Returned")
                     continue;
 
-
-
                 detail.Status = "Returned";
+                detail.ReturnDate = DateOnly.FromDateTime(DateTime.Now);
 
-                detail.ReturnDate =
-                    DateOnly.FromDateTime(DateTime.Now);
-
-
-
-                detail.Book.AvailableQuantity +=
-                    detail.Quantity;
-
-
+                detail.Book.AvailableQuantity += detail.Quantity;
 
                 CalculateFine(detail);
-
             }
-
-
 
             selectedBorrow.Status = "Returned";
 
-
             _context.SaveChanges();
 
-
-
             MessageBox.Show("Books returned successfully.");
-
 
             LoadBorrowRecords();
 
             dgBorrowDetails.ItemsSource = null;
+
+            selectedBorrow = null;
         }
-
-
-
-
-
 
         private void btnReturnSelected_Click(object sender, RoutedEventArgs e)
         {
-
             if (selectedBorrow == null)
             {
                 MessageBox.Show("Please select borrow record.");
                 return;
             }
 
-
-
-            var details =
-                dgBorrowDetails.ItemsSource
-                as IEnumerable<BorrowDetail>;
-
-
-
-            if (details == null)
-                return;
-
-
-
-            var selectedDetails =
-                details
+            var selectedDetails = borrowDetails
                 .Where(x => x.IsSelected)
                 .ToList();
 
-
-
-            if (selectedDetails.Count == 0)
+            if (!selectedDetails.Any())
             {
                 MessageBox.Show("Please select a book.");
                 return;
             }
 
-
-
-
             foreach (var detail in selectedDetails)
             {
-
                 if (detail.Status == "Returned")
                     continue;
 
-
-
                 detail.Status = "Returned";
+                detail.ReturnDate = DateOnly.FromDateTime(DateTime.Now);
 
-
-                detail.ReturnDate =
-                    DateOnly.FromDateTime(DateTime.Now);
-
-
-
-                detail.Book.AvailableQuantity +=
-                    detail.Quantity;
-
-
+                detail.Book.AvailableQuantity += detail.Quantity;
 
                 CalculateFine(detail);
             }
 
 
-
-
-            bool allReturned =
-                _context.BorrowDetails
-                .Where(x => x.BorrowId == selectedBorrow.BorrowId)
-                .All(x => x.Status == "Returned");
-
-
-
-            if (allReturned)
+            if (borrowDetails.All(x => x.Status == "Returned"))
             {
                 selectedBorrow.Status = "Returned";
+
             }
 
-
-
             _context.SaveChanges();
-
-
-
             MessageBox.Show("Books returned.");
 
-
-
-            LoadBorrowRecords();
-
-
-            borrowDetails =
-            new ObservableCollection<BorrowDetail>(
-         _context.BorrowDetails
-         .Include(x => x.Book)
-         .Where(x => x.BorrowId == selectedBorrow.BorrowId)
-         .ToList()
-     );
-
-
-            dgBorrowDetails.ItemsSource = borrowDetails;
-
+            RefreshCurrentBorrow();
         }
 
 
+        private void RefreshCurrentBorrow()
+        {
+            LoadBorrowRecords();
 
+            if (selectedBorrow == null)
+            {
+                dgBorrowDetails.ItemsSource = null;
+                return;
+            }
+
+            borrowDetails = new ObservableCollection<BorrowDetail>(
+                _context.BorrowDetails
+                    .Include(x => x.Book)
+                    .Where(x => x.BorrowId == selectedBorrow.BorrowId)
+                    .ToList());
+
+            dgBorrowDetails.ItemsSource = borrowDetails;
+        }
 
 
         private void CalculateFine(BorrowDetail detail)
         {
-
             if (selectedBorrow == null)
                 return;
 
+            decimal fine = 0;
 
-            DateOnly today =
-                DateOnly.FromDateTime(DateTime.Now);
+            DateOnly today = DateOnly.FromDateTime(DateTime.Now);
 
+
+            switch (detail.ReturnCondition)
+            {
+                case "Lost":
+                    decimal lostFee = 50000;
+                    fine += detail.Book.Price + lostFee;
+                    break;
+
+                case "Damaged":
+                    fine += 100000;
+                    break;
+            }
 
 
             if (today > selectedBorrow.DueDate)
             {
-
                 int lateDays =
                     today.DayNumber -
                     selectedBorrow.DueDate.DayNumber;
 
-
-                detail.FineAmount =
-                    lateDays * 5000;
-
+                fine += lateDays * 5000;
             }
-            else
-            {
-                detail.FineAmount = 0;
-            }
-
+            detail.FineAmount = fine;
         }
 
     }

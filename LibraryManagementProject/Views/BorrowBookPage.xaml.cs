@@ -152,7 +152,7 @@ namespace LibraryManagementProject.Views
             _context.SaveChanges();
 
             foreach (Book book in borrowBooks)
-            {
+            { 
                 BorrowDetail detail = new BorrowDetail
                 {
                     BorrowId = record.BorrowId,

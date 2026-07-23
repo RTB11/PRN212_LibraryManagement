@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryManagementProject.Model;
 
@@ -30,12 +29,11 @@ public partial class Book
 
     public bool? Status { get; set; }
 
+    public decimal Price { get; set; }
+
     public virtual Author Author { get; set; } = null!;
 
     public virtual ICollection<BorrowDetail> BorrowDetails { get; set; } = new List<BorrowDetail>();
-
-    [NotMapped]
-    public string BorrowCondition { get; set; } = "Good";
 
     public virtual Category Category { get; set; } = null!;
 }

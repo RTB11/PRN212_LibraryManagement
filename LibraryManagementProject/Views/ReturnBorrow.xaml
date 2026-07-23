@@ -121,15 +121,17 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Borrow Details"
+                               Grid.Row="0"
                            FontSize="18"
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
 
                     <DataGrid x:Name="dgBorrowDetails"
-                          Grid.Row="1"
-                          AutoGenerateColumns="False"
-                          SelectionMode="Extended"
-                          Margin="0,10,0,10">
+                              Grid.Row="1"
+                              AutoGenerateColumns="False"
+                              SelectionMode="Extended"
+                              CanUserAddRows="False"
+                              Margin="0,10,0,10">
 
                         <DataGrid.Columns>
 
@@ -140,41 +142,38 @@
                                             Width="150"/>
 
                             <DataGridTextColumn Header="Status"
-                                            Binding="{Binding Status}"
-                                            Width="100"/>
+                                                Binding="{Binding Status}"
+                                                Width="100"/>
 
-                            <DataGridTemplateColumn Header="Return Condition"  Width="150">
+                            <DataGridTextColumn Header="Borrow Condition"
+                                                Binding="{Binding BorrowCondition}"
+                                                Width="150"/>
 
+                            <DataGridTemplateColumn Header="Return Condition" Width="150">
                                 <DataGridTemplateColumn.CellTemplate>
-
                                     <DataTemplate>
-
-                                        <ComboBox SelectedValue="{Binding ReturnCondition}"  SelectedValuePath="Content">
+                                        <ComboBox SelectedValue="{Binding ReturnCondition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            SelectedValuePath="Content">
 
                                             <ComboBoxItem Content="Good"/>
-
                                             <ComboBoxItem Content="Fair"/>
-
                                             <ComboBoxItem Content="Damaged"/>
-
                                             <ComboBoxItem Content="Lost"/>
 
                                         </ComboBox>
-
                                     </DataTemplate>
-
                                 </DataGridTemplateColumn.CellTemplate>
-
                             </DataGridTemplateColumn>
 
-
-                            <DataGridTextColumn Header="Return Date"
-                                            Binding="{Binding ReturnDate}"
-                                            Width="120"/>
-
-                            <DataGridTextColumn Header="Fine"
-                                            Binding="{Binding FineAmount}"
-                                            Width="100"/>
+                            <DataGridTemplateColumn Header="Return Note" Width="220">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding ReturnNote,
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
                         </DataGrid.Columns>
 

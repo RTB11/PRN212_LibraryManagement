@@ -182,8 +182,8 @@
                     </StackPanel>
 
                     <DataGrid x:Name="dgBorrow"
-          AutoGenerateColumns="False"
-          SelectionMode="Single">
+                              AutoGenerateColumns="False"
+                              SelectionMode="Single">
 
                         <DataGrid.Columns>
 
@@ -211,7 +211,9 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
 
-                                        <ComboBox SelectedValue="{Binding BorrowCondition}">
+                                        <ComboBox SelectedValue="{Binding BorrowCondition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                  SelectedValuePath="Content">
+
                                             <ComboBoxItem Content="Good"/>
                                             <ComboBoxItem Content="Fair"/>
                                             <ComboBoxItem Content="Damaged"/>

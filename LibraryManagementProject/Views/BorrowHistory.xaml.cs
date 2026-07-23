@@ -32,6 +32,7 @@ namespace LibraryManagementProject.Views
         {
             dgBorrowHistory.ItemsSource = _context.BorrowRecords
                 .Include(x => x.Member)
+                .Include(x => x.User)
                 .OrderByDescending(x => x.CreatedAt)
                 .ToList();
         }

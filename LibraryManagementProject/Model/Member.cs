@@ -19,5 +19,7 @@ public partial class Member
 
     public bool? Status { get; set; }
 
+    public bool? Gender { get; set; }
+
     public virtual ICollection<BorrowRecord> BorrowRecords { get; set; } = new List<BorrowRecord>();
 }
