@@ -34,8 +34,11 @@
             <Label Content="Category"/>
 
             <ComboBox x:Name="cbCategory"
-          DisplayMemberPath="CategoryName"
-          SelectedValuePath="CategoryId"/>
+                      IsEditable="True"
+                      IsTextSearchEnabled="False"
+                      DisplayMemberPath="CategoryName"
+                      SelectedValuePath="CategoryId"
+                      KeyUp="cbCategory_KeyUp"/>
 
 
             <Label Content="Publish Year"/>

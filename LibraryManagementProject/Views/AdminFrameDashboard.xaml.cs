@@ -1,4 +1,5 @@
-﻿using System.Windows;
+using LibraryManagementProject.Model;
+using System.Windows;
 using System.Windows.Controls;
 using LibraryManagementProject.Views;
 
@@ -51,9 +52,11 @@ namespace LibraryManagementProject.Views
 
             if (result == MessageBoxResult.Yes)
             {
-                this.Close();
+                UserSession.CurrentUser = null;
                 LoginWindow login = new LoginWindow();
+                Application.Current.MainWindow = login;
                 login.Show();
+                this.Close();
             }
         }
 

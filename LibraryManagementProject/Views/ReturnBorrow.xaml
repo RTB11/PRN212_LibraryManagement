@@ -91,9 +91,6 @@
                                             Binding="{Binding DueDate}"
                                             Width="120"/>
 
-                            <DataGridTextColumn Header="Books"
-                                            Binding="{Binding TotalBooks}"
-                                            Width="70"/>
 
                             <DataGridTextColumn Header="Status"
                                             Binding="{Binding Status}"
@@ -152,8 +149,11 @@
                             <DataGridTemplateColumn Header="Return Condition" Width="150">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox SelectedValue="{Binding ReturnCondition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            SelectedValuePath="Content">
+                                        <ComboBox SelectedValue="{Binding ReturnCondition,
+                                              Mode=TwoWay,
+                                              UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedValuePath="Content"
+                                              SelectionChanged="ReturnCondition_SelectionChanged">
 
                                             <ComboBoxItem Content="Good"/>
                                             <ComboBoxItem Content="Fair"/>

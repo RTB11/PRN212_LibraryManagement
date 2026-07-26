@@ -135,6 +135,19 @@ namespace LibraryManagementProject.Views
             selectedBorrow = null;
         }
 
+        private void ReturnCondition_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox combo &&
+                combo.DataContext is BorrowDetail detail)
+            {
+                detail.IsSelected = true;
+
+                dgBorrowDetails.Items.Refresh();
+            }
+        }
+
+
+
         private void btnReturnSelected_Click(object sender, RoutedEventArgs e)
         {
             if (selectedBorrow == null)

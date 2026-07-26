@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +8,6 @@ namespace LibraryManagementProject.Model
 {
     public static class UserSession
     {
-        public static User CurrentUser { get; set; }
+        public static User? CurrentUser { get; set; }
     }
 }

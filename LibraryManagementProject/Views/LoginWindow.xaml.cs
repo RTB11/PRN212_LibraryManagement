@@ -1,4 +1,4 @@
-﻿using LibraryManagementProject.Model;
+using LibraryManagementProject.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Windows;
@@ -50,12 +50,14 @@ namespace LibraryManagementProject.Views
             if (user.Role.RoleName == "Admin")
             {
                 AdminFrameDashboard dashboard = new AdminFrameDashboard();
+                Application.Current.MainWindow = dashboard;
                 dashboard.Show();
                 this.Close();
             }
             else if (user.Role.RoleName == "Librarian")
             {
                 LibrarianFrame LibrarianFrame = new LibrarianFrame();
+                Application.Current.MainWindow = LibrarianFrame;
                 LibrarianFrame.Show();
                 this.Close();
             }
