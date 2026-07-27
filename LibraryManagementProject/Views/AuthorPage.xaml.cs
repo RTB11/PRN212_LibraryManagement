@@ -1,4 +1,5 @@
 using LibraryManagementProject.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Windows;
@@ -19,7 +20,45 @@ namespace LibraryManagementProject.Views
 
         private void LoadAuthors()
         {
-            lvAuthors.ItemsSource = _context.Authors.ToList();
+            FilterAuthors();
+        }
+
+        private void FilterAuthors()
+        {
+            if (_context == null || lvAuthors == null)
+                return;
+
+            var query = _context.Authors
+                                .Include(a => a.Books)
+                                .ThenInclude(b => b.Category)
+                                .AsQueryable();
+
+            if (txtSearch != null && !string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                string keyword = txtSearch.Text.Trim();
+                query = query.Where(a => (a.AuthorName != null && a.AuthorName.Contains(keyword)) ||
+                                         a.AuthorId.ToString().Contains(keyword));
+            }
+
+            lvAuthors.ItemsSource = query.ToList();
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterAuthors();
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            FilterAuthors();
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtSearch != null)
+                txtSearch.Text = string.Empty;
+
+            FilterAuthors();
         }
 
         private void lvAuthors_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -29,7 +68,14 @@ namespace LibraryManagementProject.Views
             if (selectedAuthor != null)
             {
                 txtAuthorName.Text = selectedAuthor.AuthorName;
-                txtBiography.Text = selectedAuthor.Biography;
+                txtBookCount.Text = selectedAuthor.BookCount.ToString();
+                lbAuthorBooks.ItemsSource = selectedAuthor.Books?.ToList();
+            }
+            else
+            {
+                txtAuthorName.Clear();
+                txtBookCount.Clear();
+                lbAuthorBooks.ItemsSource = null;
             }
         }
 
@@ -54,8 +100,7 @@ namespace LibraryManagementProject.Views
 
             Author author = new Author
             {
-                AuthorName = name,
-                Biography = txtBiography.Text.Trim()
+                AuthorName = name
             };
 
             _context.Authors.Add(author);
@@ -91,18 +136,24 @@ namespace LibraryManagementProject.Views
             }
 
             selectedAuthor.AuthorName = name;
-            selectedAuthor.Biography = txtBiography.Text.Trim();
 
             _context.SaveChanges();
             MessageBox.Show("Update author successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             LoadAuthors();
         }
 
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearForm();
+        }
+
         private void ClearForm()
         {
             selectedAuthor = null;
+            lvAuthors.SelectedItem = null;
             txtAuthorName.Clear();
-            txtBiography.Clear();
+            txtBookCount.Clear();
+            lbAuthorBooks.ItemsSource = null;
         }
     }
 }

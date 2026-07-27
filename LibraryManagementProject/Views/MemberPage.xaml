@@ -1,4 +1,4 @@
-﻿<Page x:Class="LibraryManagementProject.Views.MemberPage"
+<Page x:Class="LibraryManagementProject.Views.MemberPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,16 +6,53 @@
       mc:Ignorable="d"
       Background="#ECF0F1">
 
-    <Grid Margin="10">
+    <Grid Margin="15">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <!-- Search Toolbar -->
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="5" Padding="12" Margin="0,0,0,15">
+            <WrapPanel VerticalAlignment="Center">
+                <TextBlock Text="Search Member:"
+                           VerticalAlignment="Center"
+                           FontWeight="SemiBold"
+                           Margin="0,0,10,0"/>
+
+                <TextBox x:Name="txtSearch"
+                         Width="250"
+                         Height="30"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0"
+                         Margin="0,0,15,0"
+                         TextChanged="txtSearch_TextChanged"/>
+
+                <Button x:Name="btnSearch"
+                        Content="Search"
+                        Width="80"
+                        Height="30"
+                        Margin="0,0,10,0"
+                        Click="btnSearch_Click"/>
+
+                <Button x:Name="btnReset"
+                        Content="Reset"
+                        Width="80"
+                        Height="30"
+                        Click="btnReset_Click"/>
+            </WrapPanel>
+        </Border>
+
+        <!-- Members ListView -->
         <ListView x:Name="lvMembers"
                   Grid.Column="0"
+                  Grid.Row="1"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   SelectionChanged="lvMembers_SelectionChanged">
@@ -23,52 +60,44 @@
             <ListView.View>
                 <GridView>
 
-
                     <GridViewColumn Header="ID"
                                     Width="60"
                                     DisplayMemberBinding="{Binding MemberId}"/>
-
 
                     <GridViewColumn Header="Full Name"
                                     Width="180"
                                     DisplayMemberBinding="{Binding FullName}"/>
 
-
                     <GridViewColumn Header="Email"
                                     Width="220"
                                     DisplayMemberBinding="{Binding Email}"/>
-
 
                     <GridViewColumn Header="Phone"
                                     Width="120"
                                     DisplayMemberBinding="{Binding Phone}"/>
 
-
                     <GridViewColumn Header="Address"
                                     Width="200"
                                     DisplayMemberBinding="{Binding Address}"/>
-
 
                     <GridViewColumn Header="Gender"
                                     Width="100"
                                     DisplayMemberBinding="{Binding GenderText}"/>       
 
-
                     <GridViewColumn Header="Join Date"
                                     Width="120"
                                     DisplayMemberBinding="{Binding JoinDate}"/>
-
 
                 </GridView>
             </ListView.View>
 
         </ListView>
 
-
+        <!-- Action Buttons -->
         <StackPanel Grid.Column="1"
+                    Grid.Row="1"
                     Margin="15,0,0,0"
                     VerticalAlignment="Top">
-
 
             <Button x:Name="btnAdd"
                     Content="Add Member"
@@ -76,7 +105,6 @@
                     Height="35"
                     Margin="0,0,0,10"
                     Click="btnAdd_Click"/>
-
 
             <Button x:Name="btnUpdate"
                     Content="Update"
@@ -86,7 +114,6 @@
                     Click="btnUpdate_Click"/>
 
         </StackPanel>
-
 
     </Grid>
 

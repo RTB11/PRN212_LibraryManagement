@@ -1,14 +1,12 @@
-﻿using LibraryManagementProject.Model;
+using LibraryManagementProject.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-
 
 namespace LibraryManagementProject.Views
 {
-  
     public partial class BookListPageManager : Page
     {
         readonly LibraryContext _context = new LibraryContext();
@@ -19,16 +17,12 @@ namespace LibraryManagementProject.Views
         {
             InitializeComponent();
             LoadCategories();
-
             LoadBooks();
         }
 
         private void LoadBooks()
         {
-            var books = _context.Books.Include(b => b.Author).Include(b => b.Category)
-                                .ToList();
-
-            lvBooks.ItemsSource = books;
+            FilterBooks();
         }
 
         private void LoadCategories()
@@ -49,7 +43,11 @@ namespace LibraryManagementProject.Views
 
         private void FilterBooks()
         {
-            var query = _context.Books.Include(b => b.Author)
+            if (_context == null || cbCategory == null || lvBooks == null)
+                return;
+
+            var query = _context.Books
+                                .Include(b => b.Author)
                                 .Include(b => b.Category)
                                 .AsQueryable();
 
@@ -58,26 +56,57 @@ namespace LibraryManagementProject.Views
                 query = query.Where(b => b.CategoryId == categoryId);
             }
 
+            if (txtSearch != null && !string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                string keyword = txtSearch.Text.Trim();
+                query = query.Where(b => (b.Title != null && b.Title.Contains(keyword)) ||
+                                         (b.Author != null && b.Author.AuthorName != null && b.Author.AuthorName.Contains(keyword)) ||
+                                         (b.Isbn != null && b.Isbn.Contains(keyword)) ||
+                                         (b.Publisher != null && b.Publisher.Contains(keyword)));
+            }
+
             lvBooks.ItemsSource = query.ToList();
         }
 
         private void cbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!IsLoaded)
-                return;
             FilterBooks();
         }
 
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterBooks();
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            FilterBooks();
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtSearch != null)
+                txtSearch.Text = string.Empty;
+
+            if (cbCategory != null)
+                cbCategory.SelectedIndex = 0;
+
+            FilterBooks();
+        }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             AddBookWindow window = new AddBookWindow();
 
-            window.ShowDialog(); 
-
-            LoadBooks();     
+            if (window.ShowDialog() == true)
+            {
+                LoadBooks();
+            }
+            else
+            {
+                LoadBooks();
+            }
         }
-
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -99,6 +128,5 @@ namespace LibraryManagementProject.Views
         {
             _book = lvBooks.SelectedItem as Book;
         }
-
     }
 }

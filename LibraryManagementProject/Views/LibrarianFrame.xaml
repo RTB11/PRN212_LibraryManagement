@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagementProject.Views"
         mc:Ignorable="d"
-        Title="LibrarianDashboard" Height="450" Width="800">
+        Title="LibrarianDashboard" Height="800" Width="1100">
     <Grid>
 
         <Grid.RowDefinitions>

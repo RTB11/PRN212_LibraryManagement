@@ -142,7 +142,6 @@ namespace LibraryManagementProject.Views
             {
                 detail.IsSelected = true;
 
-                dgBorrowDetails.Items.Refresh();
             }
         }
 
@@ -238,8 +237,7 @@ namespace LibraryManagementProject.Views
 
             if (today > selectedBorrow.DueDate)
             {
-                int lateDays =
-                    today.DayNumber -
+                int lateDays = today.DayNumber -
                     selectedBorrow.DueDate.DayNumber;
 
                 fine += lateDays * 5000;

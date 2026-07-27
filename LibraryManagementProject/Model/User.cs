@@ -19,7 +19,8 @@ public partial class User
 
     public DateTime? CreatedAt { get; set; }
 
-    public virtual ICollection<BorrowRecord> BorrowRecords { get; set; } = new List<BorrowRecord>();
+    public string StatusText => Status ? "Active" : "Inactive";
 
+    public virtual ICollection<BorrowRecord> BorrowRecords { get; set; } = new List<BorrowRecord>();
     public virtual Role Role { get; set; } = null!;
 }

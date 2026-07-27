@@ -1,115 +1,174 @@
-﻿<Page x:Class="LibraryManagementProject.Views.AuthorPage"
+<Page x:Class="LibraryManagementProject.Views.AuthorPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Background="#ECF0F1">
 
-
-	<Grid Margin="10">
+	<Grid Margin="15">
 
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="300"/>
+			<ColumnDefinition Width="340"/>
 		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="White" CornerRadius="5" Padding="12" Margin="0,0,0,15">
+			<WrapPanel VerticalAlignment="Center">
+				<TextBlock Text="Search Author:"
+                           VerticalAlignment="Center"
+                           FontWeight="SemiBold"
+                           Margin="0,0,10,0"/>
+
+				<TextBox x:Name="txtSearch"
+                         Width="250"
+                         Height="30"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0"
+                         Margin="0,0,15,0"
+                         TextChanged="txtSearch_TextChanged"/>
+
+				<Button x:Name="btnSearch"
+                        Content="Search"
+                        Width="80"
+                        Height="30"
+                        Margin="0,0,10,0"
+                        Click="btnSearch_Click"/>
+
+				<Button x:Name="btnReset"
+                        Content="Reset"
+                        Width="80"
+                        Height="30"
+                        Click="btnReset_Click"/>
+			</WrapPanel>
+		</Border>
 
 		<ListView x:Name="lvAuthors"
                   Grid.Column="0"
+                  Grid.Row="1"
                   Margin="0,0,15,0"
                   SelectionChanged="lvAuthors_SelectionChanged">
 
-
 			<ListView.View>
-
 				<GridView>
 
-
 					<GridViewColumn Header="ID"
-                                    Width="70"
+                                    Width="60"
                                     DisplayMemberBinding="{Binding AuthorId}"/>
 
-
 					<GridViewColumn Header="Author Name"
-                                    Width="200"
+                                    Width="220"
                                     DisplayMemberBinding="{Binding AuthorName}"/>
 
-
-					<GridViewColumn Header="Biography"
-                                    Width="300"
-                                    DisplayMemberBinding="{Binding Biography}"/>
-
+					<GridViewColumn Header="Total Books"
+                                    Width="120"
+                                    DisplayMemberBinding="{Binding BookCount}"/>
 
 				</GridView>
-
 			</ListView.View>
-
 
 		</ListView>
 
-
 		<Border Grid.Column="1"
+                Grid.Row="1"
                 Background="White"
-                Padding="15">
-
+                CornerRadius="5"
+                Padding="15"
+                VerticalAlignment="Top">
 
 			<StackPanel>
 
-
-				<Label Content="Author Controller"
+				<Label Content="Author Information"
                        FontSize="18"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"/>
 
-
-
 				<Label Content="Author Name"
-                       Margin="0,20,0,5"/>
-
+                       Margin="0,15,0,2"/>
 
 				<TextBox x:Name="txtAuthorName"
-                         Height="30"/>
+                         Height="30"
+                         VerticalContentAlignment="Center"/>
 
+				<Label Content="Total Books"
+                       Margin="0,10,0,2"/>
 
+				<TextBox x:Name="txtBookCount"
+                         Height="30"
+                         IsReadOnly="True"
+                         Background="#F5F5F5"
+                         VerticalContentAlignment="Center"/>
 
+				<Label Content="Books in Library"
+                       Margin="0,10,0,2"
+                       FontWeight="SemiBold"/>
 
-				<Label Content="Biography"
-                       Margin="0,10,0,5"/>
-
-
-				<TextBox x:Name="txtBiography"
-                         Height="100"
-                         TextWrapping="Wrap"
-                         AcceptsReturn="True"/>
-
-
-
+				<ListBox x:Name="lbAuthorBooks"
+                         Height="180"
+                         Margin="0,0,0,10"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         HorizontalContentAlignment="Stretch">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Border BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="4">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+									<StackPanel Grid.Column="0">
+										<TextBlock Text="{Binding Title}" FontWeight="SemiBold" TextWrapping="Wrap"/>
+										<TextBlock FontSize="11" Foreground="#666666" Margin="0,2,0,0">
+											<Run Text="Category: "/>
+											<Run Text="{Binding Category.CategoryName}"/>
+										</TextBlock>
+									</StackPanel>
+									<TextBlock Grid.Column="1" 
+                                               VerticalAlignment="Center"
+                                               FontSize="11" 
+                                               FontWeight="SemiBold"
+                                               Margin="8,0,0,0">
+										<Run Text="Available: "/>
+										<Run Text="{Binding AvailableQuantity}"/>
+									</TextBlock>
+								</Grid>
+							</Border>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 
 				<StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center"
-                            Margin="0,25,0,0">
-
+                            Margin="0,10,0,0">
 
 					<Button x:Name="btnAdd"
                             Content="Add"
-                            Width="70"
+                            Width="75"
+                            Height="30"
                             Click="btnAdd_Click"/>
-
 
 					<Button x:Name="btnSave"
                             Content="Save"
-                            Width="70"
+                            Width="75"
+                            Height="30"
                             Margin="10,0,0,0"
                             Click="btnSave_Click"/>
 
+					<Button x:Name="btnClear"
+                            Content="Clear"
+                            Width="75"
+                            Height="30"
+                            Margin="10,0,0,0"
+                            Click="btnClear_Click"/>
 
 				</StackPanel>
 
-
 			</StackPanel>
-
 
 		</Border>
 
-
 	</Grid>
-
 
 </Page>
